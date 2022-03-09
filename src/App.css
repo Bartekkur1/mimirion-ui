@@ -1,39 +1,91 @@
-.App {
-  text-align: center;
+*:focus {
+    outline: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+.sidebar-container {
+    height: 100vh;
+    min-width: 330px;
+    max-width: 330px;
+    background-color: #F5F8FD;
+    display: flex;
+    flex-direction: column;
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.sidebar-logo {
+    font-size: 32px;
+    font-weight: bold;
+    padding: 1rem;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.sidebar-search-container {
+    padding: 1rem;
+    padding-right: 1rem;
+    display: flex;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.sidebar-search-input {
+    border-radius: 10px;
+    border: 1px solid gray;
+    background-color: transparent;
+    padding: 0.4rem;
+    width: 100%;
+}
+
+.sidebar-label {
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+.sidebar-button {
+    padding-left: 1rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    cursor: pointer;
+}
+
+.sidebar-button:hover {
+    font-weight: bold;
+}
+
+.selected {
+    background-color: #7ac5ff;
+}
+
+.live-version {
+    background-color: #4CD964;
+}
+
+.config-container {
+    padding: 1rem;
+}
+
+.label-title {
+    font-size: 32px;
+}
+
+.config-value {
+    border-radius: 10px;
+    padding: 1rem;
+    max-height: 1000px;
+}
+
+.option-live {
+    background-color: rgb(122, 206, 122) !important;
+}
+
+.option-not-live {
+    background-color: white;
+}
+
+.versions-select {
+    padding: 0.3rem;
 }

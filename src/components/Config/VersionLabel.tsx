@@ -1,18 +1,20 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { getConfig, selectConfigurations } from "../../store/reducers/config";
+import { getConfig, getVersions, selectConfigurations, setVersion } from "../../store/reducers/config";
 import { selectStorages } from "../../store/reducers/storage";
 
 export const VersionLabel: FC = () => {
 
-    const { versions } = useAppSelector(selectConfigurations);
+    const { versions, changed } = useAppSelector(selectConfigurations);
     const { selected } = useAppSelector(selectStorages);
     const [selectedVersion, selectVersion] = useState<string | undefined>(undefined);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        selectVersion(versions.find(v => v.live)?.id.toString());
+        if (selectedVersion === undefined && versions.length > 0) {
+            selectVersion(versions[0].id)
+        }
     }, [versions]);
 
     useEffect(() => {
@@ -21,26 +23,27 @@ export const VersionLabel: FC = () => {
         }
     }, [versions, selectedVersion])
 
+    useEffect(() => {
+        dispatch(setVersion(selectedVersion));
+    }, [selectedVersion]);
 
-    if (selected === undefined) {
-        return (
-            <div className="label-title">Select a store</div>
-        )
-    }
+    useEffect(() => {
+        if (selected !== undefined) {
+            dispatch(getVersions(selected))
+        }
+    }, [changed]);
 
-    if (selected && versions.length === 0) {
-        return (
-            <div className="label-title">No published versions!</div>
-        )
+    if (versions.length === 0) {
+        return <></>
     }
 
     return (
-        <div>
+        <div className="version-label-container">
             <select
-                className={"versions-select " + (versions.find(v => v.live)?.id == selectedVersion ? "option-live" : "")}
+                className={"versions-select"}
                 value={selectedVersion} onChange={e => selectVersion(e.currentTarget.value)}>
-                {versions.map(({ id, live }) => {
-                    return <option key={id} className={live ? "option-live" : "option-not-live"} value={id}>Version: {id}</option>
+                {versions.map(({ id }) => {
+                    return <option key={id} value={id}>Version: {id}</option>
                 })}
             </select>
         </div>

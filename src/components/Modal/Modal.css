@@ -1,0 +1,93 @@
+.modal-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    background-color: rgba(187, 187, 187, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    max-width: 300px;
+    min-width: 300px;
+    height: fit-content;
+}
+
+.modal-input {
+    border: none;
+    border-bottom: 0.2px solid black;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-input-checkbox {
+    margin-right: 0.5rem;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-buttons input {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0.4rem;
+    min-width: 120px;
+    margin: 1rem;
+    background-color: transparent;
+}
+
+.modal-buttons input:hover {
+    background-color: #F5F8FD;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: white;
+    background-color: black;
+    padding: 1rem;
+}
+
+.modal-error {
+    font-size: 14px;
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.modal-body-title {
+    text-align: center;
+    font-size: 28px;
+    padding: 1.4rem;
+}
+
+input[type=checkbox] {
+    transform: scale(1.4);
+    cursor: pointer;
+}
+
+.modal-checkbox-group {
+    text-align: center;
+}
+
+.modal-text-area {
+    max-width: 294px;
+    max-height: 300px;
+}

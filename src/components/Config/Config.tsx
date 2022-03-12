@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { selectConfigurations } from "../../store/reducers/config";
-import { VersionLabel } from './VersionLabel';
+import { Header } from "./Header";
 
 export const Config: FC = () => {
 
@@ -9,7 +9,7 @@ export const Config: FC = () => {
 
     return (
         <div className="config-container">
-            <VersionLabel />
+            <Header />
             {
                 value &&
                 <div className="config-value">

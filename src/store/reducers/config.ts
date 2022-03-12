@@ -7,13 +7,15 @@ import { RootState } from "../store";
 export interface ConfigState {
     versions: ConfigVersion[];
     value: any;
+    selectedVersion: number;
     changed: boolean;
 }
 
 const initialState: ConfigState = {
     versions: [],
     value: undefined,
-    changed: false
+    changed: false,
+    selectedVersion: 1
 };
 
 export const getVersions = createAsyncThunk('get/versions', async (id: string) => {
@@ -46,7 +48,7 @@ interface PatchConfig {
 };
 
 export const patchConfig = createAsyncThunk('publish/config', async ({ id, action, version }: PatchConfig) => {
-    return axios.patch(`/config/${action}/${version}?id=${id}`, getClientConfig());
+    return axios.patch(`/config/${action}/${version}?id=${id}`, {}, getClientConfig());
 });
 
 interface GetConfigPayload {
@@ -62,19 +64,23 @@ export const getConfig = createAsyncThunk('get/config', async ({ id, version }: 
 export const configSlice = createSlice({
     name: 'config',
     initialState,
-    reducers: {},
+    reducers: {
+        setVersion: (state, action) => {
+            state.selectedVersion = action.payload;
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(getConfig.rejected, (state) => {
                 state.value = undefined;
             })
-            .addCase(patchConfig.fulfilled, (state, action) => {
+            .addCase(patchConfig.fulfilled, (state) => {
                 state.changed = true;
             })
-            .addCase(createConfig.fulfilled, (state, action) => {
+            .addCase(createConfig.fulfilled, (state) => {
                 state.changed = true;
             })
-            .addCase(removeConfig.fulfilled, (state, action) => {
+            .addCase(removeConfig.fulfilled, (state) => {
                 state.changed = true;
             })
             .addCase(getConfig.fulfilled, (state, action) => {
@@ -88,4 +94,5 @@ export const configSlice = createSlice({
 });
 
 export const selectConfigurations = (state: RootState) => state.config;
+export const { setVersion } = configSlice.actions
 export default configSlice.reducer;

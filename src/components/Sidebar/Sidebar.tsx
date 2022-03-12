@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { getVersions } from "../../store/reducers/config";
 import { getStorages, selectStorages, selectStore } from "../../store/reducers/storage";
+import { SettingsModal } from "../Settings/SettingsModal";
 import { AddStoreModal } from "../Store/AddStore";
 
 
@@ -12,6 +13,7 @@ export const Sidebar: FC = () => {
     const { storages, selected, changed } = useAppSelector(selectStorages);
 
     const [AddStoreVisible, ChangeAddStoreVisibilty] = useState(false);
+    const [SettingsVisible, ChangeSettingsVisibilty] = useState(false);
 
     useEffect(() => {
         dispatch(getStorages());
@@ -27,9 +29,14 @@ export const Sidebar: FC = () => {
         }
     }, [selected]);
 
+    const refreshData = () => {
+        dispatch(getStorages());
+    };
+
     return (
         <div className="sidebar-container">
             <AddStoreModal visible={AddStoreVisible} close={ChangeAddStoreVisibilty} />
+            <SettingsModal visible={SettingsVisible} close={ChangeSettingsVisibilty} />
 
             <div className="sidebar-logo">Mimirion</div>
             <div className="sidebar-search-container">
@@ -37,9 +44,9 @@ export const Sidebar: FC = () => {
             </div>
 
             <div className="sidebar-label">Actions</div>
-            <div className="sidebar-button">Refresh</div>
+            <div className="sidebar-button" onClick={() => refreshData()}>Refresh</div>
             <div className="sidebar-button" onClick={() => ChangeAddStoreVisibilty(true)}>Add Storage</div>
-            <div className="sidebar-button">Settings</div>
+            <div className="sidebar-button" onClick={() => ChangeSettingsVisibilty(true)}>Settings</div>
 
             <div className="sidebar-label">Storages</div>
 
